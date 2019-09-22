@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ynu.csistaffsystem.mapper.DocumentMapper">
+    <select id="queryDocument" resultType="ynu.csistaffsystem.dto.vo.DocumentVO">
+        select
+        document_info.id id,
+        document_info.title title,
+        document_info.filename fileName,
+        document_info.remark remark,
+        document_info.create_time createTime,
+        user_info.user_name userName
+        from document_info
+        left join user_info
+        on document_info.user_id = user_info.id
+        <if test="searchParam!=null">
+            <if test="searchParam.title != null">
+                and document_info.title like concat(concat('%',#{searchParam.title}),'%')
+            </if>
+        </if>
+    </select>
+</mapper>

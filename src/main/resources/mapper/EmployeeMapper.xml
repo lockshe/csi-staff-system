@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ynu.csistaffsystem.mapper.EmployeeMapper">
+    <select id="queryEmployee" resultType="ynu.csistaffsystem.dto.vo.EmployeeVO">
+        select
+              employee_info.id id,
+              employee_info.name name,
+              dept_info.name department,
+              job_info.name job,
+              employee_info.card_id cardId,
+              employee_info.address address,
+              employee_info.post_code postCode,
+              employee_info.tel tel,
+              employee_info.qq_num qqNum,
+              employee_info.email email,
+              employee_info.sex sex,
+              employee_info.party party,
+              employee_info.birthday birthday,
+              employee_info.race race,
+              employee_info.education education,
+              employee_info.speciality speciality,
+              employee_info.hobby hobby,
+              employee_info.remark remark
+        from employee_info
+        left join dept_info on dept_id = dept_info.id
+        left join job_info on job_id = job_info.id
+        where 1 = 1
+        <if test='searchParam != null'>
+            <if test='searchParam.deptId !=null'>
+                and employee_info.dept_id = #{searchParam.deptId}
+            </if>
+            <if test='searchParam.jobId !=null'>
+                and employee_info.job_id = #{searchParam.jobId}
+            </if>
+            <if test='searchParam.sex !=null'>
+                and employee_info.sex =#{searchParam.sex}
+            </if>
+            <if test='searchParam.cardId != null'>
+                and employee_info.card_id = #{searchParam.cardId}
+            </if>
+            <if test='searchParam.tel != null'>
+                and employee_info.tel = #{searchParam.tel}
+            </if>
+            <if test='searchParam.name != null'>
+                and employee_info.name like CONCAT(CONCAT('%',#{searchParam.name, jdbcType=VARCHAR}),'%')
+            </if>
+        </if>
+    </select>
+
+</mapper>

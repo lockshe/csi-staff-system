@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ynu.csistaffsystem.mapper.NoticeMapper">
+    <select id="queryNotice"  resultType="ynu.csistaffsystem.dto.vo.NoticeVO">
+        select notice_info.id id,
+               notice_info.title title,
+               notice_info.content content,
+               notice_info.create_time createTime,
+               user_info.user_name userName
+        from notice_info
+        left join user_info
+        on notice_info.user_id = user_info.id
+        where 1 = 1
+        <if test="searchParam!=null">
+            <if test="searchParam.title != null">
+                and notice_info.title like concat(concat('%',#{searchParam.title}),'%')
+            </if>
+        </if>
+    </select>
+</mapper>
