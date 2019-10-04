@@ -7,7 +7,7 @@
         where 1 = 1
         <if test="searchParam!=null">
             <if test="searchParam.name != null">
-                and dept_info.name like concat(concat('%',#{searchParam.name}),'%')
+                and job_info.name like concat(concat('%',#{searchParam.name}),'%')
             </if>
         </if>
     </select>
