@@ -21,7 +21,7 @@ public class FileHandlerUtil {
     private static String pathUrl;
 
     private static String uploadUrl;
-
+    //fix...
     static{
         try {
             create();
